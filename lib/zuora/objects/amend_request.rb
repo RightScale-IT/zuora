@@ -27,8 +27,8 @@ module Zuora::Objects
         xml.__send__(zns, :requests) do |r|
           r.__send__(zns, :Amendments) do |a|
             generate_amendment a
-            generate_rate_plan_data a
-          end
+            generate_rate_plan_data a unless plans_and_charges.blank?
+          end 
 
           r.__send__(zns, :AmendOptions) do |so|
             generate_amend_options(so)
@@ -71,7 +71,6 @@ module Zuora::Objects
     end
 
     def generate_rate_plan_data(builder)
-
       self.plans_and_charges.each do |pandc|
         rate_plan = pandc[:rate_plan]
         charges = pandc[:charges]

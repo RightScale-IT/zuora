@@ -4,6 +4,8 @@ module Zuora::Objects
   # TODO: support UOM validations for specific charge models (docs dont match examples)
   # TODO: do not allow changing charge_type for existing objects (via example usage for update docs)
   class RatePlanCharge < Base
+    SELECTABLE_ONLY_ALONE = %w(OveragePrice Price IncludedUnits DiscountAmount DiscountPercentage)
+
     belongs_to :original, :class_name => 'RatePlanCharge'
     belongs_to :product_rate_plan_charge
     belongs_to :rate_plan
@@ -81,6 +83,10 @@ module Zuora::Objects
         :overage_calculation_option => 'EndOfSmoothingPeriod',
         :overage_unused_units_credit_option => 'NoCredit'
       )
+    end
+    
+    def self.selectable_only_alone
+      SELECTABLE_ONLY_ALONE
     end
   end
 end

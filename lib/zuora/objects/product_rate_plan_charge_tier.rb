@@ -1,10 +1,12 @@
 module Zuora::Objects
   class ProductRatePlanChargeTier < Base
+
+    SELECTABLE_ONLY_ALONE = %w(IncludedUnits DiscountPercentage Price) 
+
     belongs_to :product_rate_plan_charge
 
     validates_presence_of :currency
 
-    validates_inclusion_of :active, :in => [true, false]
     validates_inclusion_of :is_overage_price, :in => [true, false], :allow_nil => true
     validates_inclusion_of :price_format, :in => ['Flat Fee', 'Per Unit'], :allow_nil => true
     validates_numericality_of :price, :greater_than => 0
@@ -14,5 +16,10 @@ module Zuora::Objects
       restrain :starting_unit, :ending_unit, :is_overage_price, :price_format, :currency
       defaults :currency => 'USD'
     end
+
+    def self.selectable_only_alone
+      SELECTABLE_ONLY_ALONE
+    end
+
   end
 end

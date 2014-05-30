@@ -1,7 +1,7 @@
 require 'sqlite3'
 
 module Zuora
-  #Sqlite3 in memoroy connector to simulate Zuora in test environments
+  #Sqlite3 in memory connector to simulate Zuora in test environments
   class SqliteConnector
     cattr_accessor :db
 

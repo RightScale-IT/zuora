@@ -209,5 +209,6 @@ module Zuora
     def remote_name
       self.class.name.base_name
     end
+
   end
 end

@@ -1,6 +1,8 @@
 module Zuora
   class SoapConnector
     attr_reader :model
+    attr_reader :models
+    
     delegate :ons, :zns, :remote_name, :id, :to => :model
 
     def initialize(model)
@@ -10,6 +12,12 @@ module Zuora
     def query(sql)
       Zuora::Api.instance.request(:query) do |xml|
         xml.__send__(@model.zns, :queryString, sql)
+      end
+    end
+
+    def query_more(query_locator)
+      Zuora::Api.instance.request(:query_more) do |xml|
+        xml.__send__(@model.zns, :queryLocator, query_locator)
       end
     end
 
@@ -27,18 +35,22 @@ module Zuora
     def update
       Zuora::Api.instance.request(:update) do |xml|
         xml.__send__(zns, :zObjects, 'xsi:type' => "#{ons}:#{remote_name}") do |a|
-          obj_attrs = @model.to_hash
-          obj_id = obj_attrs.delete(:id)
-          a.__send__(ons, :Id, obj_id)
-          change_syms = @model.changed.map(&:to_sym)
-          obj_attrs.reject{|k,v| @model.read_only_attributes.include?(k) }.each do |k,v|
-            a.__send__(ons, k.to_s.zuora_camelize.to_sym, convert_value(v)) if change_syms.include?(k)
-          end
-          generate_complex_objects(a, :update)
+          generate_update_xml(a)
         end
       end
     end
- 
+
+    def generate_update_xml(a)
+      obj_attrs = @model.to_hash
+      obj_id = obj_attrs.delete(:id)
+      a.__send__(ons, :Id, obj_id)
+      change_syms = @model.changed.map(&:to_sym)
+      obj_attrs.reject{|k,v| @model.read_only_attributes.include?(k) }.each do |k,v|
+        a.__send__(ons, k.to_s.zuora_camelize.to_sym, convert_value(v)) if change_syms.include?(k)
+      end
+      generate_complex_objects(a, :update)
+    end
+
     def generate
       Zuora::Api.instance.request(:generate) do |xml|
         xml.__send__(zns, :zObjects, 'xsi:type' => "#{ons}:#{remote_name}") do |a|
