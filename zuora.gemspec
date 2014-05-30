@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "zuora/version"
 
 Gem::Specification.new do |s|
-  s.name        = "zuora-rs"
+  s.name        = "zuora"
   s.version     = Zuora::Version.to_s
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Josh Martin"]
