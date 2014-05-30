@@ -1,12 +1,18 @@
-# Zuora [![Build Status](https://secure.travis-ci.org/wildfireapp/zuora.png?branch=master)](http://travis-ci.org/wildfireapp/zuora) [![Gemnasium](https://gemnasium.com/wildfireapp/zuora.png)](https://gemnasium.com/wildfireapp/zuora)
-
 This library allows you to interact with [Zuora](http://www.zuora.com) billing platform directly using 
 familiar [ActiveModel](https://github.com/rails/rails/tree/master/activemodel) based objects.
 
+## Why this fork?
+ * Updated dependencies (Savon ~>2.5, ActiveSupport/ActiveModel ~> 4.1 )
+ * Bulk methods
+ * Query more than first 2000 records
+ * Query all fields of ProductRatePlanChargeTier and RatePlanCharge
+ * API Version 55
+ 
 ## Requirements
   * [bundler](https://github.com/carlhuda/bundler)
   * [active_support](https://github.com/rails/rails/tree/master/activesupport)
-  * [savon](https://github.com/rubiii/savon)
+  * [active_model](https://github.com/rails/rails/tree/master/activemodel)
+  * [savon](https://github.com/rubiii/savon) 
   * [wasabi](https://github.com/rubiii/wasabi)
 
 All additional requirements for development should be referenced in the provided zuora.gemspec and Gemfile.
