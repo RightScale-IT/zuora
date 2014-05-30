@@ -574,9 +574,7 @@
 				<complexContent>
 					<extension base="ons:zObject">
 						<sequence>
-			          <!-- requires further implementation     	<element minOccurs="0" name="ActiveCurrencies" nillable="true" type="string"  /> -->
-			          <!-- Zuora::Fault: (fns:INVALID_VALUE) When querying for active currencies, you cannot query for other fields at the same time. -->
-			          <!-- Zuora::Fault: (fns:INVALID_VALUE) When querying for active currencies, you can only include a product rate plan id in the "where" clause.  -->
+											<element minOccurs="0" name="ActiveCurrencies" nillable="true" type="string"  />
 			               	<element minOccurs="0" name="CreatedById" nillable="true" type="zns:ID"  />
 			               	<element minOccurs="0" name="CreatedDate" nillable="true" type="dateTime"  />
 							<element minOccurs="0" name="Description" nillable="true" type="string" />
